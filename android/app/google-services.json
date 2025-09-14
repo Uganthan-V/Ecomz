@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "82728396249",
+    "project_id": "ecomassign",
+    "storage_bucket": "ecomassign.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82728396249:android:50e9a87f3a7e2a76b8e5c8",
+        "android_client_info": {
+          "package_name": "com.example.ecom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClGDQHN8ezttGoJRwpS7DYRrTlpM7-9P8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82728396249:android:553ea29f53e3f659b8e5c8",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_mini_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClGDQHN8ezttGoJRwpS7DYRrTlpM7-9P8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
