@@ -1,25 +1,4 @@
 
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import '../../../data/datasources/local_storage.dart';
-
-// class WishlistCubit extends Cubit<List<int>> {
-//   final LocalStorageService localStorage;
-//   WishlistCubit({required this.localStorage}) : super([]);
-
-//   void loadFromStorage() {
-//     final list = localStorage.readWishlist();
-//     emit(list);
-//   }
-
-//   Future<void> toggle(int productId) async {
-//     final current = List<int>.from(state);
-//     if (current.contains(productId)) current.remove(productId);
-//     else current.add(productId);
-//     await localStorage.saveWishlist(current);
-//     emit(current);
-//   }
-// }
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/datasources/local_storage.dart';
 

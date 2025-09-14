@@ -24,6 +24,10 @@ migrate_working_dir/
 #.vscode/
 
 # Flutter/Dart/Pub related
+# In .gitignore
+lib/firebase_options.dart
+**/generated_plugin_registrant.dart
+**/generated_plugin_registrant.h
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
