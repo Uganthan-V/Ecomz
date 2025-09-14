@@ -1,34 +1,74 @@
-# Flutter E-Commerce Mini App
+# 🛍️ Flutter E-Commerce Mini App
 
-A compact but complete Flutter e-commerce mini-app showcasing:
-- Firebase Authentication (email/password)
-- Product catalog from DummyJSON[](https://dummyjson.com/products)
-- Pagination, search and category filter
-- Product detail with related products
-- Cart & Wishlist with local persistence (Hive)
-- Offline support (cached products + local cart/wishlist)
-- State management via `flutter_bloc` (Cubits/Blocs)
-- Pull-to-refresh and light/dark theme toggle
-- Purple & white gradient theme
+A compact but complete **Flutter e-commerce application** built using modern tools and best practices. This project demonstrates key functionality required in a production-ready app, such as authentication, state management, offline support, persistent storage, and API integration.
 
-## Models Used
+---
 
-*   **ProductModel:** Represents a product with properties such as id, title, description, price, rating, images, and category.
+## 🚀 Features
 
-This canvas contains a ready-to-run project skeleton. Open the files in the editor pane to inspect the implementation.
+### 🔐 Authentication
+- Firebase Email/Password login & registration
+- Form validation & error handling
+- Authentication state persistence
 
-## Quick setup
-1. Install Flutter SDK (>=3.0) and set up your device/emulator.
-2. Create a Firebase project and add Android/iOS apps. Download `google-services.json` (Android) or `GoogleService-Info.plist` (iOS) and follow Firebase setup steps.
-3. In project `android/app` add `google-services.json` and update Gradle files per Firebase docs.
-4. Run:
-```bash
-flutter pub get
-flutter run
-```
+### 🛍️ Product Catalog
+- Data fetched from [DummyJSON API](https://dummyjson.com/products)
+- Infinite scroll (pagination)
+- Product categories with filter
+- Search functionality
 
-## Notes & decisions
-- `DummyJSON` is used for product data (no auth required).
-- Firebase Auth handles registration/login. You must configure Firebase for the app and enable Email/Password sign-in.
-- Offline persistence uses `hive` (simple and fast). The project serializes product maps rather than registering type adapters to keep the example compact.
-- State management uses `flutter_bloc` and Cubits providing Loading/Success/Error/Empty states.
+### 📝 Product Details
+- Product title, description, rating, images
+- Display related products by category
+
+### ❤️ Wishlist & Cart
+- Add/remove items to/from cart or wishlist
+- **Local persistence** using Hive
+- UI badges with item count
+
+### 📶 Offline Support
+- Products are cached locally after fetching
+- Cart and Wishlist persist without internet
+
+### 🎨 Theming
+- Light/Dark mode toggle
+- Consistent **Purple & White gradient** design
+
+### 🧭 Navigation
+- Declarative routing with `go_router`
+- Named routes for pages
+- Redirect based on auth state
+
+### 🧠 State Management
+- `flutter_bloc` for Cubits and Blocs
+- Separate states for Loading / Success / Error / Empty
+- BlocBuilders and BlocListeners for reactive UI
+
+---
+
+## 📦 Dependencies
+
+Add the following to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  bloc: ^9.0.0
+  connectivity_plus: ^7.0.0
+  dartz: ^0.10.1
+  dio: ^5.9.0
+  equatable: ^2.0.7
+  firebase_auth: ^6.0.2
+  firebase_core: ^4.1.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  get: ^4.7.2
+  get_it: ^8.2.0
+  go_router: ^16.2.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  http: ^1.5.0
+  intl: ^0.20.2
+  js: ^0.7.2
+  pull_to_refresh: ^2.0.0
+  shared_preferences: ^2.5.3
