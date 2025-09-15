@@ -15,13 +15,20 @@ class CartScreen extends StatelessWidget {
       canPop: false,
       onPopInvoked: (didPop) {
         if (!didPop) {
-          context.go('/'); // Navigate to home instead of exiting
+          context.go('/');
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.purple, Colors.white],
+            colors: Theme.of(context).brightness == Brightness.light
+                ? [Colors.purple, Colors.white]
+                : [
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).scaffoldBackgroundColor == Colors.transparent
+                        ? Colors.white
+                        : Colors.grey[900]!,
+                  ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -29,10 +36,10 @@ class CartScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: const Text(
+            title: Text(
               'Cart',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).textTheme.titleLarge!.color,
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
               ),
@@ -40,14 +47,19 @@ class CartScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.grey),
+              icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
               onPressed: () => context.go('/'),
             ),
           ),
           body: BlocBuilder<CartCubit, CartState>(
             builder: (context, state) {
               if (state.items.isEmpty) {
-                return const Center(child: Text('Cart is empty'));
+                return Center(
+                  child: Text(
+                    'Cart is empty',
+                    style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                  ),
+                );
               }
               return Column(
                 children: [
@@ -67,7 +79,7 @@ class CartScreen extends StatelessWidget {
                             color: Colors.red,
                             alignment: Alignment.centerRight,
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: const Icon(Icons.delete, color: Colors.white),
+                            child: Icon(Icons.delete, color: Theme.of(context).iconTheme.color),
                           ),
                           onDismissed: (_) {
                             final removedItem = state.items[key];
@@ -75,10 +87,14 @@ class CartScreen extends StatelessWidget {
                             ScaffoldMessenger.of(context).clearSnackBars();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: const Text('Item removed from cart'),
+                                content: Text(
+                                  'Item removed from cart',
+                                  style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                                ),
                                 duration: const Duration(seconds: 3),
                                 action: SnackBarAction(
                                   label: 'Undo',
+                                  textColor: Theme.of(context).primaryColor,
                                   onPressed: () {
                                     if (removedItem != null) {
                                       final items = Map<int, Map<String, dynamic>>.from(state.items);
@@ -94,11 +110,11 @@ class CartScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(bottom: 16),
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 243, 217, 248).withOpacity(0.8),
+                              color: Theme.of(context).cardTheme.color,
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
+                                  color: Theme.of(context).shadowColor.withOpacity(0.1),
                                   spreadRadius: 1,
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
@@ -116,9 +132,9 @@ class CartScreen extends StatelessWidget {
                                           height: 80,
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) =>
-                                              const Icon(Icons.image_not_supported),
+                                              Icon(Icons.image_not_supported, color: Theme.of(context).iconTheme.color),
                                         )
-                                      : const Icon(Icons.image_not_supported),
+                                      : Icon(Icons.image_not_supported, color: Theme.of(context).iconTheme.color),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -127,27 +143,31 @@ class CartScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         product['title'],
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.black87,
+                                          color: Theme.of(context).textTheme.bodyLarge!.color,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
                                       Row(
                                         children: [
                                           IconButton(
-                                            icon: const Icon(Icons.remove),
+                                            icon: Icon(Icons.remove, color: Theme.of(context).iconTheme.color),
                                             onPressed: () {
                                               if (qty > 1) {
                                                 context.read<CartCubit>().updateQuantity(key, qty - 1);
                                                 ScaffoldMessenger.of(context).clearSnackBars();
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   SnackBar(
-                                                    content: const Text('Quantity decreased'),
+                                                    content: Text(
+                                                      'Quantity decreased',
+                                                      style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                                                    ),
                                                     duration: const Duration(seconds: 3),
                                                     action: SnackBarAction(
                                                       label: 'Undo',
+                                                      textColor: Theme.of(context).primaryColor,
                                                       onPressed: () {
                                                         context.read<CartCubit>().updateQuantity(key, qty);
                                                       },
@@ -157,18 +177,25 @@ class CartScreen extends StatelessWidget {
                                               }
                                             },
                                           ),
-                                          Text('$qty'),
+                                          Text(
+                                            '$qty',
+                                            style: TextStyle(color: Theme.of(context).textTheme.bodyMedium!.color),
+                                          ),
                                           IconButton(
-                                            icon: const Icon(Icons.add),
+                                            icon: Icon(Icons.add, color: Theme.of(context).iconTheme.color),
                                             onPressed: () {
                                               context.read<CartCubit>().updateQuantity(key, qty + 1);
                                               ScaffoldMessenger.of(context).clearSnackBars();
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
-                                                  content: const Text('Quantity increased'),
+                                                  content: Text(
+                                                    'Quantity increased',
+                                                    style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                                                  ),
                                                   duration: const Duration(seconds: 3),
                                                   action: SnackBarAction(
                                                     label: 'Undo',
+                                                    textColor: Theme.of(context).primaryColor,
                                                     onPressed: () {
                                                       context.read<CartCubit>().updateQuantity(key, qty);
                                                     },
@@ -184,13 +211,13 @@ class CartScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   '\$${((product['price'] as num) * qty).toStringAsFixed(2)}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                    color: Theme.of(context).textTheme.bodyMedium!.color,
                                   ),
                                 ),
-                                SizedBox(width: 12),
+                                const SizedBox(width: 12),
                               ],
                             ),
                           ),
@@ -205,13 +232,27 @@ class CartScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Total: \$${context.read<CartCubit>().total().toStringAsFixed(2)}',
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).textTheme.titleLarge!.color,
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {
                             // Checkout logic
                           },
-                          child: const Text('Checkout'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).elevatedButtonTheme.style!.backgroundColor!.resolve({}),
+                            foregroundColor: Theme.of(context).elevatedButtonTheme.style!.foregroundColor!.resolve({}),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                          child: Text(
+                            'Checkout',
+                            style: TextStyle(
+                              color: Theme.of(context).elevatedButtonTheme.style!.foregroundColor!.resolve({}),
+                            ),
+                          ),
                         ),
                       ],
                     ),

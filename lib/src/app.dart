@@ -17,25 +17,18 @@ import 'data/datasources/product_remote_datasource.dart';
 import 'data/datasources/local_storage.dart';
 import 'data/repositories/product_repository_impl.dart';
 import 'package:dio/dio.dart';
+import 'presentation/blocs/theme/theme_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Set status bar to transparent with light icons for visibility
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light, // Light icons for purple gradient
-      statusBarBrightness: Brightness.dark, // For iOS compatibility
-    ));
-
     final dio = Dio();
     final remote = ProductRemoteDataSourceImpl(dio);
     final local = LocalStorageService();
     final repo = ProductRepositoryImpl(remote: remote, local: local);
 
-    // Define GoRouter configuration
     final GoRouter router = GoRouter(
       initialLocation: '/login',
       routes: [
@@ -71,16 +64,10 @@ class MyApp extends StatelessWidget {
         final authCubit = context.read<AuthCubit>();
         final isAuthenticated = authCubit.state is AuthAuthenticated;
 
-        // Redirect to login if not authenticated and trying to access protected routes
-        if (!isAuthenticated &&
-            state.matchedLocation != '/login' &&
-            state.matchedLocation != '/register') {
+        if (!isAuthenticated && state.matchedLocation != '/login' && state.matchedLocation != '/register') {
           return '/login';
         }
-        // Redirect to home if authenticated and trying to access login/register
-        if (isAuthenticated &&
-            (state.matchedLocation == '/login' ||
-                state.matchedLocation == '/register')) {
+        if (isAuthenticated && (state.matchedLocation == '/login' || state.matchedLocation == '/register')) {
           return '/';
         }
         return null;
@@ -93,35 +80,71 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ProductCubit(repo: repo)..fetchInitial()),
         BlocProvider(create: (_) => CartCubit(localStorage: local)..loadFromStorage()),
         BlocProvider(create: (_) => WishlistCubit(localStorage: local)..loadFromStorage()),
+        BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.purple, Colors.white],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'E-Commerce Mini',
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-            brightness: Brightness.light,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black87),
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'E-Commerce Mini',
+            theme: ThemeData(
+              primarySwatch: Colors.purple,
+              brightness: Brightness.light,
+              scaffoldBackgroundColor: Colors.transparent,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple[600],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+              textTheme: const TextTheme(
+                bodyLarge: TextStyle(color: Colors.black87),
+                bodyMedium: TextStyle(color: Colors.black87),
+                titleLarge: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+              ),
+              iconTheme: const IconThemeData(color: Colors.grey),
+              cardTheme: CardThemeData(
+                color: Colors.white.withOpacity(0.8),
+                elevation: 2,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
             ),
-          ),
-          routerConfig: router,
-          builder: (context, child) {
-            return Scaffold(
-              extendBodyBehindAppBar: true,
-              body: child ?? const SizedBox.shrink(),
-            );
-          },
-        ),
+            darkTheme: ThemeData(
+              primarySwatch: Colors.purple,
+              brightness: Brightness.dark,
+              scaffoldBackgroundColor: Colors.transparent,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple[800],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+              textTheme: const TextTheme(
+                bodyLarge: TextStyle(color: Colors.white),
+                bodyMedium: TextStyle(color: Colors.white70),
+                titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              iconTheme: const IconThemeData(color: Colors.white70),
+              cardTheme: CardThemeData(
+                color: Colors.grey[850]!.withOpacity(0.8),
+                elevation: 2,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            themeMode: themeMode,
+            routerConfig: router,
+          );
+        },
       ),
     );
   }

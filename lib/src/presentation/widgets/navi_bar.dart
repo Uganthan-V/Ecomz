@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,13 +21,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
     switch (index) {
       case 0: // Shop
-        context.go('/'); // Use go to reset to home
+        context.go('/');
         break;
       case 1: // Cart
-        context.push('/cart'); // Use push to maintain stack
+        context.push('/cart');
         break;
       case 2: // Favorites
-        context.push('/wishlist'); // Use push to maintain stack
+        context.push('/wishlist');
         break;
     }
   }
@@ -56,16 +55,18 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white.withOpacity(0.0),
-              const Color.fromARGB(255, 243, 217, 248).withOpacity(0.8),
+              Theme.of(context).scaffoldBackgroundColor == Colors.transparent
+                  ? Colors.white.withOpacity(0.0)
+                  : Colors.grey[900]!.withOpacity(0.0),
+              Theme.of(context).cardTheme.color!,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.05),
-              offset: Offset(0, -4),
+              color: Theme.of(context).shadowColor.withOpacity(0.05),
+              offset: const Offset(0, -4),
               blurRadius: 16,
             ),
           ],
@@ -95,7 +96,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           children: [
             Icon(
               icon,
-              color: isSelected ? Colors.purple : Colors.grey,
+              color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).iconTheme.color,
               size: 24,
             ),
             Text(
@@ -103,7 +104,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: isSelected ? Colors.purple : Colors.grey,
+                color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).textTheme.bodyMedium!.color,
               ),
             ),
           ],

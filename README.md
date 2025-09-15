@@ -72,3 +72,10 @@ dependencies:
   js: ^0.7.2
   pull_to_refresh: ^2.0.0
   shared_preferences: ^2.5.3
+
+### 📝 Instructions to Clone the Repository
+
+To get started with the Flutter E-Commerce Mini App, clone the repository using the following command:
+
+```bash
+git clone https://github.com/Uganthan-V/Ecomz.git

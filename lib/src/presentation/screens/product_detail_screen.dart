@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -35,7 +36,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       setState(() => _product = p);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to load product: $e')),
+        SnackBar(
+          content: Text(
+            'Failed to load product: $e',
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+          ),
+        ),
       );
     } finally {
       setState(() => _loading = false);
@@ -48,7 +54,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       canPop: false,
       onPopInvoked: (didPop) {
         if (!didPop) {
-          context.go('/'); // Navigate to home instead of exiting
+          context.go('/');
         }
       },
       child: Scaffold(
@@ -56,11 +62,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         body: _loading
             ? const Center(child: CircularProgressIndicator())
             : _product == null
-                ? const Center(child: Text('Product not found'))
+                ? Center(
+                    child: Text(
+                      'Product not found',
+                      style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                    ),
+                  )
                 : Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.purple, Colors.white],
+                        colors: Theme.of(context).brightness == Brightness.light
+                            ? [Colors.purple, Colors.white]
+                            : [
+                                Theme.of(context).primaryColor,
+                                Theme.of(context).scaffoldBackgroundColor == Colors.transparent
+                                    ? Colors.white
+                                    : Colors.grey[900]!,
+                              ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -74,9 +92,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CircleAvatar(
-                                  backgroundColor: Colors.white.withOpacity(0.8),
+                                  backgroundColor: Theme.of(context).cardTheme.color,
                                   child: IconButton(
-                                    icon: const Icon(Icons.arrow_back, color: Colors.grey),
+                                    icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
                                     onPressed: () => context.go('/'),
                                   ),
                                 ),
@@ -84,11 +102,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   builder: (context, wishlist) {
                                     final saved = wishlist.contains(_product!.id);
                                     return CircleAvatar(
-                                      backgroundColor: saved ? Colors.white.withOpacity(0.8) : Colors.white.withOpacity(0.8),
+                                      backgroundColor: Theme.of(context).cardTheme.color,
                                       child: IconButton(
                                         icon: Icon(
                                           saved ? Icons.favorite : Icons.favorite_border,
-                                          color: saved ? Colors.red : Colors.grey,
+                                          color: saved ? Colors.red : Theme.of(context).iconTheme.color,
                                         ),
                                         onPressed: () => context.read<WishlistCubit>().toggle(_product!.id),
                                       ),
@@ -131,7 +149,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         width: _currentPage == index ? 10 : 6,
                                         height: _currentPage == index ? 10 : 6,
                                         decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(_currentPage == index ? 0.9 : 0.5),
+                                          color: Theme.of(context).iconTheme.color!.withOpacity(_currentPage == index ? 0.9 : 0.5),
                                           shape: BoxShape.circle,
                                         ),
                                       ),
@@ -144,9 +162,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           Expanded(
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardTheme.color,
+                                borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
                               ),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -158,12 +176,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         Expanded(
                                           child: Text(
                                             _product!.title,
-                                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context).textTheme.titleLarge!.color,
+                                            ),
                                           ),
                                         ),
                                         Text(
                                           '\$${_product!.price}',
-                                          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.purple),
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -174,19 +200,30 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         const SizedBox(width: 4),
                                         Text(
                                           _product!.rating.toStringAsFixed(1),
-                                          style: const TextStyle(fontWeight: FontWeight.w600),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(context).textTheme.bodyMedium!.color,
+                                          ),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(height: 16),
-                                    const Text(
+                                    Text(
                                       'Description',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).textTheme.titleLarge!.color,
+                                      ),
                                     ),
                                     const SizedBox(height: 6),
                                     Text(
                                       _product!.description,
-                                      style: const TextStyle(fontSize: 14, color: Colors.black87, height: 1.4),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Theme.of(context).textTheme.bodyMedium!.color,
+                                        height: 1.4,
+                                      ),
                                     ),
                                     const SizedBox(height: 20),
                                     SizedBox(
@@ -196,20 +233,32 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         onPressed: () {
                                           context.read<CartCubit>().addToCart(_product!);
                                           ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(content: Text('Added to cart')),
+                                            SnackBar(
+                                              content: Text(
+                                                'Added to cart',
+                                                style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                                              ),
+                                            ),
                                           );
                                         },
-                                        icon: const Icon(Icons.shopping_cart, color: Colors.white),
-                                        label: const Text(
+                                        icon: Icon(
+                                          Icons.shopping_cart,
+                                          color: Theme.of(context).elevatedButtonTheme.style!.foregroundColor!.resolve({}),
+                                        ),
+                                        label: Text(
                                           'Add to Cart',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Theme.of(context).elevatedButtonTheme.style!.foregroundColor!.resolve({}),
+                                          ),
                                         ),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.purple[600],
+                                          backgroundColor: Theme.of(context).elevatedButtonTheme.style!.backgroundColor!.resolve({}),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                           ),
-                                          shadowColor: Colors.purpleAccent,
+                                          shadowColor: Theme.of(context).primaryColor,
                                           elevation: 8,
                                         ),
                                       ),
@@ -219,7 +268,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

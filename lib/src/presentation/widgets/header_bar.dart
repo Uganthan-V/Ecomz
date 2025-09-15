@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,28 +17,28 @@ class HeaderBar extends StatelessWidget {
         children: [
           IconButton(
             onPressed: onMenuPressed,
-            icon: const Icon(Icons.menu, color: Colors.grey),
+            icon: Icon(Icons.menu, color: Theme.of(context).iconTheme.color),
             style: IconButton.styleFrom(
-              backgroundColor: Colors.white.withOpacity(0.6),
+              backgroundColor: Theme.of(context).cardTheme.color,
               fixedSize: const Size(40, 40),
             ),
           ),
           Row(
             children: [
               IconButton(
-                onPressed: () => context.push('/wishlist'), // Use push to maintain stack
-                icon: const Icon(Icons.favorite_border, color: Colors.grey),
+                onPressed: () => context.push('/wishlist'),
+                icon: Icon(Icons.favorite_border, color: Theme.of(context).iconTheme.color),
                 style: IconButton.styleFrom(
-                  backgroundColor: Colors.white.withOpacity(0.6),
+                  backgroundColor: Theme.of(context).cardTheme.color,
                   fixedSize: const Size(40, 40),
                 ),
               ),
               const SizedBox(width: 8),
               IconButton(
-                onPressed: () => context.push('/cart'), // Use push to maintain stack
-                icon: const Icon(Icons.shopping_bag, color: Colors.grey),
+                onPressed: () => context.push('/cart'),
+                icon: Icon(Icons.shopping_bag, color: Theme.of(context).iconTheme.color),
                 style: IconButton.styleFrom(
-                  backgroundColor: Colors.white.withOpacity(0.6),
+                  backgroundColor: Theme.of(context).cardTheme.color,
                   fixedSize: const Size(40, 40),
                 ),
               ),

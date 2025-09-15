@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,16 +13,23 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false, // Prevent default pop behavior
+      canPop: false,
       onPopInvoked: (didPop) {
         if (!didPop) {
-          context.go('/'); // Navigate to home instead of exiting
+          context.go('/');
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.purple, Colors.white],
+            colors: Theme.of(context).brightness == Brightness.light
+                ? [Colors.purple, Colors.white]
+                : [
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).scaffoldBackgroundColor == Colors.transparent
+                        ? Colors.white
+                        : Colors.grey[900]!,
+                  ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -31,10 +37,10 @@ class WishlistScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: const Text(
+            title: Text(
               'Wishlist',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).textTheme.titleLarge!.color,
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
               ),
@@ -42,7 +48,7 @@ class WishlistScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.grey),
+              icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
               onPressed: () => context.go('/'),
             ),
           ),
@@ -57,7 +63,12 @@ class WishlistScreen extends StatelessWidget {
                     return Center(child: Text('Error: ${productState.message}'));
                   }
                   if (productState is ProductEmpty || wishlistIds.isEmpty) {
-                    return const Center(child: Text('Your wishlist is empty'));
+                    return Center(
+                      child: Text(
+                        'Your wishlist is empty',
+                        style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                      ),
+                    );
                   }
                   if (productState is ProductLoaded) {
                     final wishlistProducts = productState.products
@@ -65,7 +76,12 @@ class WishlistScreen extends StatelessWidget {
                         .toList();
 
                     if (wishlistProducts.isEmpty) {
-                      return const Center(child: Text('Your wishlist is empty'));
+                      return Center(
+                        child: Text(
+                          'Your wishlist is empty',
+                          style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
+                        ),
+                      );
                     }
 
                     return ListView.builder(
@@ -74,16 +90,16 @@ class WishlistScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final product = wishlistProducts[index];
                         return GestureDetector(
-                          onTap: () => context.push('/product/${product.id}'), // Use push to maintain stack
+                          onTap: () => context.push('/product/${product.id}'),
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 16),
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 243, 217, 248).withOpacity(0.8),
+                              color: Theme.of(context).cardTheme.color,
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
+                                  color: Theme.of(context).shadowColor.withOpacity(0.1),
                                   spreadRadius: 1,
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
@@ -101,9 +117,9 @@ class WishlistScreen extends StatelessWidget {
                                           height: 80,
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) =>
-                                              const Icon(Icons.image_not_supported),
+                                              Icon(Icons.image_not_supported, color: Theme.of(context).iconTheme.color),
                                         )
-                                      : const Icon(Icons.image_not_supported),
+                                      : Icon(Icons.image_not_supported, color: Theme.of(context).iconTheme.color),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -112,10 +128,10 @@ class WishlistScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         product.title,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.black87,
+                                          color: Theme.of(context).textTheme.bodyLarge!.color,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
@@ -123,7 +139,7 @@ class WishlistScreen extends StatelessWidget {
                                         '\$${product.price.toStringAsFixed(2)}',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Colors.black,
+                                          color: Theme.of(context).textTheme.bodyMedium!.color,
                                         ),
                                       ),
                                     ],
@@ -134,8 +150,7 @@ class WishlistScreen extends StatelessWidget {
                                     Icons.favorite,
                                     color: Colors.red,
                                   ),
-                                  onPressed: () =>
-                                      context.read<WishlistCubit>().toggle(product.id),
+                                  onPressed: () => context.read<WishlistCubit>().toggle(product.id),
                                 ),
                               ],
                             ),
