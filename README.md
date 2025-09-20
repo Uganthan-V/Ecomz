@@ -46,32 +46,20 @@ A compact but complete **Flutter e-commerce application** built using modern too
 
 ---
 
-## 📦 Dependencies
+## 📸 Previews
 
-Add the following to your `pubspec.yaml`:
+Below are the screenshots showcasing the **Light Mode** and **Dark Mode** of the Flutter E-Commerce Mini App. Each mode is displayed in a separate container for clarity.
 
-```yaml
-dependencies:
-  bloc: ^9.0.0
-  connectivity_plus: ^7.0.0
-  dartz: ^0.10.1
-  dio: ^5.9.0
-  equatable: ^2.0.7
-  firebase_auth: ^6.0.2
-  firebase_core: ^4.1.0
-  flutter:
-    sdk: flutter
-  flutter_bloc: ^9.1.1
-  get: ^4.7.2
-  get_it: ^8.2.0
-  go_router: ^16.2.1
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  http: ^1.5.0
-  intl: ^0.20.2
-  js: ^0.7.2
-  pull_to_refresh: ^2.0.0
-  shared_preferences: ^2.5.3
+| **Light Mode** | **Dark Mode** |
+|----------------|----------------|
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light.jpeg" alt="Light Mode 1" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark.jpeg" alt="Dark Mode 1" width="300"/> </div> |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (2).jpeg" alt="Light Mode 2" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark (2).jpeg" alt="Dark Mode 2" width="300"/> </div> |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (3).jpeg" alt="Light Mode 3" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark (3).jpeg" alt="Dark Mode 3" width="300"/> </div> |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (4).jpeg" alt="Light Mode 4" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark (4).jpeg" alt="Dark Mode 4" width="300"/> </div> |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (5).jpeg" alt="Light Mode 5" width="300"/> </div> | |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (6).jpeg" alt="Light Mode 6" width="300"/> </div> | |
+
+---
 
 ### 📝 Instructions to Clone the Repository
 
