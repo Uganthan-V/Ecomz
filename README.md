@@ -52,11 +52,11 @@ Below are the screenshots showcasing the **Light Mode** and **Dark Mode** of the
 | **Light Mode** | **Dark Mode** |
 |----------------|---------------|
 | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light.jpeg" alt="Light Mode Main" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark.jpeg" alt="Dark Mode Main" width="300"/> </div> |
-| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (1).jpeg" alt="Light Mode 1" width="300"/> </div> | <div style="text-align: center;"> No corresponding dark mode image </div> |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (1).jpeg" alt="Light Mode 1" width="300"/> </div> | <div style="text-align: center;"> Image </div> |
 | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (2).jpeg" alt="Light Mode 2" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark (2).jpeg" alt="Dark Mode 2" width="300"/> </div> |
 | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (3).jpeg" alt="Light Mode 3" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark (3).jpeg" alt="Dark Mode 3" width="300"/> </div> |
 | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (4).jpeg" alt="Light Mode 4" width="300"/> </div> | <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/dark (4).jpeg" alt="Dark Mode 4" width="300"/> </div> |
-| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (6).jpeg" alt="Light Mode 6" width="300"/> </div> | <div style="text-align: center;"> No corresponding dark mode image </div> |
+| <div style="text-align: center;"> <img src="https://github.com/Uganthan-V/Ecomz/raw/main/assets/Preview/light (6).jpeg" alt="Light Mode 6" width="300"/> </div> | <div style="text-align: center;"> Image </div> |
 
 ---
 
